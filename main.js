@@ -1,104 +1,110 @@
-//Declaración de variables
-const arrayAlumnos = []
-let nota1, nota2, nota3, nota4, nota
-let nombre, apellido
+//Declaración de variables globales
+let prestamo = 0
+let sueldo = 0
+let nroCuotas
+let cuotaFinal = 0
+let montoConInteres = 0
+let telefono
+let nombre
 
 //Funciones
+//Calculo de IVA
+function iva(monto) {
+    let costoIVA = monto * 0.21
+    return costoIVA
 //Validar nombre
+}
 function ingresarNombre(nombre) {
-    nombre = prompt("Ingrese nombre del alumno:");
+    nombre = prompt("Ingrese su nombre completo:");
     while (nombre === "" || nombre === " " || nombre >= 0) {
         nombre = prompt(`${nombre} no es válido. Por favor ingrese su nombre de vuelta: `);
     }
     return nombre
 }
 
-//Validar apellido
-function ingresarApellido(apellido) {
-    apellido = prompt("Ingrese apellido del alumno:");
-    while (apellido === "" || apellido === " " || apellido >= 0) {
-        apellido = prompt(`${apellido} no es válido. Por favor ingrese su nombre de vuelta: `);
-    }
-    return apellido
-}
-
-//Validar nota
-function verificarnota(numero) {
+function ingresarTelefono(telefono) {
     do {
-        nota = parseFloat(prompt(`Ingrese la calificación que obtuvo en la evaluación ${numero}`))
-
-        if ((nota >= 11) || (nota <= 0) || (isNaN(nota))) {
-            alert("Ingrese un número del 1 al 10")
-        }
-    } while ((nota >= 11) || (nota <= 0) || (isNaN(nota)))
-
-    return nota
+        if (telefono = 0){
+            telefono = parseInt(prompt("Ingrese su número de teléfono con código de área. Ejemplo: 0114232323 - 3514232323:"));
+        } else if (telefono > 9000000000 || telefono < 110000000 || (isNaN(telefono))) {
+            telefono = parseInt(prompt(`${telefono} no es válido. Ingrese su número de teléfono con código de área. Ejemplo: 0114232323 - 3514232323:`))
+        }     
+    } while (telefono > 9000000000 || telefono < 110000000 || (isNaN(telefono)));    
+    return telefono  
 }
 
-//Validar respuesta
-function verificarResp() {
-    do {
-        consulta = (prompt("Desea ingresar un alumno? Si | No")).toLowerCase()
-        if ((consulta != "si") && (consulta != "no")) {
-            alert("Error, intente nuevamente")
-        }
-    } while ((consulta != "si") && (consulta != "no"))
-    return consulta
-
+function validarCuota(nroCuotas) { 
+    nroCuotas = parseInt(prompt("Ingrese la cantidad de cuotas para financiar. Nuestro máximo de cuotas es de 24"));   
+    while (nroCuotas > 24) {
+        nroCuotas = parseInt(prompt(`No trabajamos con ${nroCuotas} cuotas. Nuestro máximo es de 24. Intente nuevamente: `));
+    };
+    while (nroCuotas <= 0) {
+        nroCuotas = parseInt(prompt(`${nroCuotas} es muy bajo para ser una cuota. Financiamos de 1 a 24 cuotas. Intente nuevamente: `));
+    }    
 }
 
-// Constructor de objeto
-class Alumno {
-    constructor(nombre, apellido, nota1, nota2, nota3, nota4) {
-        this.nombre = nombre
-        this.apellido = apellido
-        this.nota1 = nota1
-        this.nota2 = nota2
-        this.nota3 = nota3
-        this.nota4 = nota4
-        this.promedio = (this.nota1 + this.nota2 + this.nota3 + this.nota4) / 4
-    }
-    mostrarPromedio() {
-        console.log(`El promedio de  ${this.nombre} ${this.apellido} es ${this.promedio}`)
-        document.write(`El promedio de  ${this.nombre} ${this.apellido} es ${this.promedio}` + `<br/>`)
-    }
-    mostrarSiAprobo() {
-        if (this.promedio >= 6) {
-            console.log(`${this.nombre} ${this.apellido} - Se encuentra aprobado`)
-            document.write(`${this.nombre} ${this.apellido} - Se encuentra aprobado` + `<br/>`)
-        } else {
-            console.log(`${this.nombre} ${this.apellido} - Se encuentra desaprobado`)
-            document.write(`${this.nombre} ${this.apellido} - Se encuentra desaprobado` + `<br/>`)
-        }
-    }
+
+//Calculo de Interes
+function interes(monto) {
+    let intereses = monto * 0.60
+    return intereses
 }
 
-//Inicio del programa
-alert("BIENVENIDO A LA CARGA DE NOTAS DE LOS ALUMNOS \nDEL SALÓN N°1")
-//Carga de datos
-do {
-    nombre = ingresarNombre()
-    apellido = ingresarApellido()
-    nota1 = verificarnota(1)
-    nota2 = verificarnota(2)
-    nota3 = verificarnota(3)
-    nota4 = verificarnota(4)
-    consulta = verificarResp()
-    arrayAlumnos.push(new Alumno(nombre, apellido, nota1, nota2, nota3, nota4))
-} while (consulta == "si")
+//INICIO DE PROGRAMA
+alert("Bienvenido a PIG-CRED. Vamos a calcular su préstamo en ARS");
+alert("A continuación le pedimos que comparta sus datos para poder validar el préstamo y ponernos en contacto con usted");
 
-//Mostrar resultados - Promedio - Aprobados o desaprobados.
-do {
-    consulta = parseFloat(prompt("Por favor escoja alguna de las siguientes opciones: \n 1 - Ver el promedio de los alumnos.\n 2 - Ver si están Aprobados o Desaprobados."))
-    if (consulta === 1) {
-        for (Alumno of arrayAlumnos) {
-            Alumno.mostrarPromedio()
-        }
-    } else if (consulta === 2) {
-        for (Alumno of arrayAlumnos) {
-            Alumno.mostrarSiAprobo()
-        }
-    } else {
-        alert("No es una opción válida. Intente nuevamente.")
-    }
-} while ((consulta !== 1) && (consulta !== 2))
+//Nombre
+nombre = ingresarNombre();
+
+//Telefono y validación
+telefono = ingresarTelefono()
+
+//Email
+let email = prompt("(Opcional) Ingrese su correo electrónico: ")
+
+//DNI y validación
+let dni = parseInt(prompt(`${nombre} ingrese su DNI: `));
+while (dni < 9000000 || dni > 99999999 || (isNaN(dni))) {
+    dni = parseInt(prompt(`${dni} no es válido. Verifique la cantidad de digitos e ingrese nuevamente su DNI: `));
+}
+
+//SUELDO y validación
+while (sueldo === 0) {
+    sueldo = parseInt(prompt("Ingrese su salario promedio al mes:"));
+    while (sueldo <= 0 || sueldo < 10000) {
+        sueldo = parseInt(prompt("Ha ingresado un valor muy bajo para su sueldo, por favor intente nuevamente:"));
+    };
+};
+
+//PRESTAMO y validación
+while (prestamo === 0) {
+    prestamo = parseInt(prompt("Nuestro límite de préstamo es de 500000 ARS. Ingrese el monto que desea adquirir sin decimales:"))
+};
+
+while (prestamo > 500000) {
+    alert("Ha ingresado un monto superior al que podemos brindarle. Por favor ingrese otro monto.")
+    prestamo = parseInt(prompt("Ingrese el monto que desea adquirir sin decimales:"));
+};
+
+while (prestamo <= 0) {
+    alert("Ha ingresado un monto inferior. Si quieres adquirir un préstamo prueba de vuelta.");
+    prestamo = parseInt(prompt("Ingrese el monto que desea adquirir sin decimales:"))
+}
+
+nroCuotas = validarCuota();
+
+// Resumen de operaciones principales por consola
+console.log("Bienvenido a PIG-CRED. Vamos a calcular su préstamo en ARS")
+console.log(`Nombre: ${nombre}`)
+console.log(`DNI: ${dni}`)
+console.log(`Telefono de contacto: ${telefono}`)
+console.log(`Monto solicitado: ${prestamo}`)
+console.log(`Cuotas: ${nroCuotas}`)
+console.log(`Monto a abonar con interes sin IVA incluido: ${montoConInteres}`)
+console.log(`RESULTADO DE SU FINANCIACIÓN: El monto que usted tendría que abonar es de ${cuotaFinal} ARS durante ${nroCuotas} meses. Para obtener su prestamo de ${prestamo} ARS`)
+
+//Calculo de monto a pagar en cuotas
+montoConInteres = interes(prestamo)
+cuotaFinal = parseFloat((montoConInteres + iva(montoConInteres) + prestamo) / nroCuotas).toFixed(2)
+alert(`RESULTADO DE SU FINANCIACIÓN: El monto que usted tendría que abonar es de ${cuotaFinal} ARS durante ${nroCuotas} meses. Para obtener su prestamo de ${prestamo} ARS`)
