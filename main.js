@@ -22,8 +22,9 @@ function ingresarNombre(nombre) {
     return nombre
 }
 
-function ingresarTelefono(telefono) {
+function ingresarTelefono(telefono) {    
     do {
+        telefono = parseInt(prompt("Ingrese su número de teléfono con código de área. Ejemplo: 0114232323 - 3514232323:"));
         if (telefono = 0){
             telefono = parseInt(prompt("Ingrese su número de teléfono con código de área. Ejemplo: 0114232323 - 3514232323:"));
         } else if (telefono > 9000000000 || telefono < 110000000 || (isNaN(telefono))) {
@@ -40,7 +41,8 @@ function validarCuota(nroCuotas) {
     };
     while (nroCuotas <= 0) {
         nroCuotas = parseInt(prompt(`${nroCuotas} es muy bajo para ser una cuota. Financiamos de 1 a 24 cuotas. Intente nuevamente: `));
-    }    
+    }
+    return nroCuotas    
 }
 
 
@@ -94,6 +96,11 @@ while (prestamo <= 0) {
 
 nroCuotas = validarCuota();
 
+//Calculo de monto a pagar en cuotas
+montoConInteres = interes(prestamo)
+cuotaFinal = parseFloat((montoConInteres + iva(montoConInteres) + prestamo) / nroCuotas).toFixed(2)
+alert(`RESULTADO DE SU FINANCIACIÓN: El monto que usted tendría que abonar es de ${cuotaFinal} ARS durante ${nroCuotas} meses. Para obtener su prestamo de ${prestamo} ARS`)
+
 // Resumen de operaciones principales por consola
 console.log("Bienvenido a PIG-CRED. Vamos a calcular su préstamo en ARS")
 console.log(`Nombre: ${nombre}`)
@@ -104,7 +111,4 @@ console.log(`Cuotas: ${nroCuotas}`)
 console.log(`Monto a abonar con interes sin IVA incluido: ${montoConInteres}`)
 console.log(`RESULTADO DE SU FINANCIACIÓN: El monto que usted tendría que abonar es de ${cuotaFinal} ARS durante ${nroCuotas} meses. Para obtener su prestamo de ${prestamo} ARS`)
 
-//Calculo de monto a pagar en cuotas
-montoConInteres = interes(prestamo)
-cuotaFinal = parseFloat((montoConInteres + iva(montoConInteres) + prestamo) / nroCuotas).toFixed(2)
-alert(`RESULTADO DE SU FINANCIACIÓN: El monto que usted tendría que abonar es de ${cuotaFinal} ARS durante ${nroCuotas} meses. Para obtener su prestamo de ${prestamo} ARS`)
+
